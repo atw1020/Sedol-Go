@@ -1,2 +1,3 @@
 tensorflow==2.9.0
-sente>=0.4.3
+sente>=0.4.2
+jupyter==1.0.0
