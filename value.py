@@ -132,9 +132,6 @@ def training_data_generator(glob_string: str):
             game.play(move)
 
 def main():
-    path = "/MI/sgfs-uploaded/2017/*/*/*"
-    generator = training_data_generator(path)
-
     dataset = tf.data.Dataset.from_generator(lambda: training_data_generator("sgfs-uploaded/2021/*/*/*"),
                                              output_signature=(
                                                  tf.TensorSpec(shape=(19, 19, 4), dtype=tf.uint8),
