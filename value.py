@@ -4,6 +4,7 @@ import sys
 import math
 import glob
 import traceback
+from mcts import mcts
 
 import keras
 from keras import layers

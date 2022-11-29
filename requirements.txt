@@ -1,4 +1,5 @@
 tensorflow==2.9.0
 sente>=0.4.2
 jupyter==1.0.0
-pydot>=1.4.2
+pydot>=1.4.
+mcts==1.0.4
