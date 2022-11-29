@@ -24,6 +24,7 @@ class gameState():
         :param board: sente game passed into the tree search
         '''
         self.game = sente.Game()
+        self.moves = []
 
     def getPossibleActions(self):
         game_array = self.game.numpy()
@@ -33,7 +34,11 @@ class gameState():
         final_move = []
 
         for i in top_ten:
-            final_move.append((int(i / 19), i % 19, sente.stone.BLACK))
+            x = int(i/19)
+            y = i % 19
+            if self.game.is_legal(x, y):
+                if sente.Move(x, y, sente.stone.BLACK) not in self.moves and sente.Move(x, y, sente.stone.WHITE) not in self.moves:
+                    final_move.append((x, y, self.game.get_active_player()))
 
         return final_move
 
@@ -41,10 +46,11 @@ class gameState():
         newState = self
         real_move = sente.Move(move[0], move[1], move[2])
         newState.game.play(real_move)
-        print(self.game)
+        self.moves.append(sente.Move(move[0], move[1], move[2]))
         return newState
 
     def isTerminal(self):
+        print(self.game)
         return self.game.is_over()
 
     def getReward(self):
@@ -55,21 +61,11 @@ class gameState():
 
 def main():
     state = gameState()
-
     monte_carlo = mcts(timeLimit=1000)
-    best_action = monte_carlo.search(initialState=state)
-    print(best_action)
-    '''
-    inputs = keras.Input(shape=(784,))
+    while True:
+        best_action = monte_carlo.search(initialState=state)
+        print(best_action)
 
-    dense = layers.Dense(64, activation="relu")
-    x = dense(inputs)
-
-    x = layers.Dense(64, activation="relu")(x)
-    outputs = layers.Dense(10)(x)
-
-    model = keras.Model(inputs=inputs, outputs=outputs, name="mnist_model")
-    model.summary()'''
 
 
 if __name__ == "__main__":
