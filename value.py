@@ -181,7 +181,7 @@ def main():
 
     optimizer = keras.optimizers.Adam(learning_rate=0.001)
     model.compile(optimizer=optimizer,
-                  loss="categorical_crossentropy")
+                  loss="binary_crossentropy")
 
     history = model.fit(training_data, epochs=5, validation_data=test_data)
 
